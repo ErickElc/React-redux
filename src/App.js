@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Counter from "./components/counter";
+import Header from "./components/header";
+import {legacy_createStore, combineReducers}from 'redux';
+import counterReducer from "./reducers/contadorReducer";
+import { Provider } from "react-redux";
+import './styles.css';
 function App() {
+  const allReducers = combineReducers({counter: counterReducer})
+  const store =  legacy_createStore(allReducers);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+        <div className="App">
+            <Header/>
+            <Counter/>
+        </div>
+    </Provider>
   );
 }
 
